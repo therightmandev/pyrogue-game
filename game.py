@@ -29,9 +29,6 @@ for i in range(0, len(level1List)):
 			level1Locations.append[i](free)
 		if (level1List[i][j] == "#"):
 			wall = Wall((i,j))
-			level1Locations.append[i](wall)	
-		if (level1List[i][j] == "#"):
-			wall = Wall((i,j))
 			level1Locations.append[i](Wall
 
 print level1Locations
