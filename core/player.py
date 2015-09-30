@@ -1,5 +1,5 @@
 class Player:
-    def __init__(self):
+    def __init__(self, place):
         self.name = "PLACEHOLDER"
         self.inventory = {}
 
@@ -9,4 +9,6 @@ class Player:
         self.current_hp = 10
         self.equipped = {}
 
-        
+        self.x, self.y = place
+        self.free = False
+        self.type = "player"
