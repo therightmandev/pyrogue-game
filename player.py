@@ -1,8 +1,3 @@
-import pygame, sys
-from pygame.locals import *
-
-pygame.init()
-
 class Player:
     def __init__(self):
         self.name = "PLACEHOLDER"
