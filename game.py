@@ -20,16 +20,16 @@ for i in range(0, len(level1List)):
 	for j in range(0,len(level1List[i])):
 		
 		letter = j
-		print letter
+		
 		if (level1List[i][j] == "@"):
 			player = Player((i,j))
 			level1Locations[i].append(player)
 		if (level1List[i][j] == "."):
 			free = Free((i,j))
-			level1Locations.append[i](free)
+			level1Locations[i].append(free)
 		if (level1List[i][j] == "#"):
 			wall = Wall((i,j))
 			level1Locations[i].append(Wall)
 
-#print level1Locations
-#print level1List
+print len(level1Locations)
+print level1Locations
