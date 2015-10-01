@@ -4,25 +4,30 @@ from core.player import Player
 from core.walls import Wall
 from core.free import Free
 
+###Some colors
 white = (255, 255, 255)
 black = (0, 0, 0)
 
+###Pygame init and fonts
 pygame.init()
 fpsClock = pygame.time.Clock()
 
 font_size = 16
 font = pygame.font.SysFont('monospace', font_size)
 
+###File opening and reading
 level1 = open('level1.txt')
 level1List = level1.readlines()
 level1Locations = []
 label_i = font.render(level1List[0], 1, pygame.Color(0,0,0))
 
+###Display settings
 label_rect = pygame.Surface.get_rect(label_i)
 display_width = label_rect[2]
 display_height = len(level1List)*font_size
 display = pygame.display.set_mode((display_width, display_height))
 
+###levelLocations list appending
 for i in range(0, len(level1List)):
 	level1Locations.append([])
 	for j in range(0,len(level1List[i])):
@@ -40,13 +45,15 @@ for i in range(0, len(level1List)):
 			level1Locations[i].append(Wall)
 
 
+###Main loop
 while True:
 
     display.fill(white)
 
     for i, j in enumerate(level1List):
-        label_i = font.render(j, 1, black)
-        display.blit(label_i, (0,(i * font_size)))
+		string = j.strip("\n\r")
+		label_i = font.render(string, 1, black)
+		display.blit(label_i, (0,(i * font_size)))
 
     pygame.display.update()
 
