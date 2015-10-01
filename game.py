@@ -9,7 +9,8 @@ fpsClock = pygame.time.Clock()
 
 display = pygame.display.set_mode((1280, 720))
 
-font = pygame.font.SysFont('monospace', 16)
+font_size = 16
+font = pygame.font.SysFont('monospace', font_size)
 
 level1 = open('level1.txt')
 level1List = level1.readlines()
@@ -39,7 +40,7 @@ while True:
 
     for i, j in enumerate(level1List):
         label_i = font.render(j, 1, pygame.Color(0,0,0))
-        display.blit(label_i, (0,(i * 16)))
+        display.blit(label_i, (0,(i * font_size)))
 
     pygame.display.update()
 
