@@ -7,6 +7,7 @@ from core.free import Free
 ###Some colors
 white = (255, 255, 255)
 black = (0, 0, 0)
+green = (0, 255, 0)
 
 ###Pygame init and fonts
 pygame.init()
@@ -19,10 +20,9 @@ font = pygame.font.SysFont('monospace', font_size)
 level1 = open('level1.txt')
 level1List = level1.readlines()
 for i, j in enumerate(level1List): #This strips the lines's newline characters
-	string = j.strip("\n")
-	level1List[i] = string
+	level1List[i] = j.strip("\n")
 level1Locations = []
-label_i = font.render(level1List[0], 1, pygame.Color(0,0,0))
+label_i = font.render(level1List[0], 1, green)
 
 ###Display settings
 label_rect = pygame.Surface.get_rect(label_i)
@@ -51,11 +51,11 @@ for i in range(0, len(level1List)):
 ###Main loop
 while True:
 
-    display.fill(white)
+    display.fill(black)
 
     for i, j in enumerate(level1List):
 
-		label_i = font.render(j, 1, black)
+		label_i = font.render(j, 1, green)
 		display.blit(label_i, (0,(i * font_size)))
 
     pygame.display.update()
