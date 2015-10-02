@@ -18,6 +18,9 @@ font = pygame.font.SysFont('monospace', font_size)
 ###File opening and reading
 level1 = open('level1.txt')
 level1List = level1.readlines()
+for i, j in enumerate(level1List): #This strips the lines's newline characters
+	string = j.strip("\n")
+	level1List[i] = string
 level1Locations = []
 label_i = font.render(level1List[0], 1, pygame.Color(0,0,0))
 
@@ -51,8 +54,8 @@ while True:
     display.fill(white)
 
     for i, j in enumerate(level1List):
-		string = j.strip("\n\r")
-		label_i = font.render(string, 1, black)
+
+		label_i = font.render(j, 1, black)
 		display.blit(label_i, (0,(i * font_size)))
 
     pygame.display.update()
