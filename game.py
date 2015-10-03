@@ -1,69 +1,51 @@
-import pygame, sys
+import pygame
 from pygame.locals import *
-from core.player import Player
-from core.walls import Wall
-from core.free import Free
+from grid import Grid
 
-###Some colors
-white = (255, 255, 255)
-black = (0, 0, 0)
-green = (0, 255, 0)
-
-###Pygame init and fonts
-pygame.init()
-fpsClock = pygame.time.Clock()
-
-font_size = 16
-font = pygame.font.SysFont('monospace', font_size)
-
-###File opening and reading
-level1 = open('level1.txt')
-level1List = level1.readlines()
-for i, j in enumerate(level1List): ##This strips the lines's newline characters
-	level1List[i] = j.strip("\n")
-level1Locations = []
-label_i = font.render(level1List[0], 1, green)
-
-###Display settings
-label_rect = pygame.Surface.get_rect(label_i)
-display_width = label_rect[2]
-display_height = len(level1List)*font_size
-display = pygame.display.set_mode((display_width, display_height))
-
-###levelLocations list appending
-for i in range(0, len(level1List)):
-	level1Locations.append([])
-	for j in range(0,len(level1List[i])):
-
-		letter = j
-
-		if (level1List[i][j] == "@"):
-			player = Player((i,j))
-			level1Locations[i].append(player)
-		if (level1List[i][j] == "."):
-			free = Free((i,j))
-			level1Locations[i].append(free)
-		if (level1List[i][j] == "#"):
-			wall = Wall((i,j))
-			level1Locations[i].append(Wall)
+BLACK = (0,0,0)
+WHITE = (255,255,255)
 
 
-###Main loop
-while True:
+class Display(object):
+    """handles pygame main loop, display etc."""
+    def __init__(self, height, width):
+        pygame.init()
+        self.height, self.width = height, width
+        self.screen = pygame.display.set_mode((self.width, self.height))
+        self.background = pygame.Surface(self.screen.get_size())
+        self.background.convert()
+        self.background.fill(BLACK)
 
-    display.fill(black)
+    def adjust_screen(self, bottom_right_field):
+        """adjusts the screen if fields don't take up all display"""
+        width = bottom_right_field.xpos + bottom_right_field.sizex
+        height = bottom_right_field.ypos + bottom_right_field.sizey
+        self.screen = pygame.display.set_mode((width, height))
 
-    for i, j in enumerate(level1List):
 
-		label_i = font.render(j, 1, green)
-		display.blit(label_i, (0,(i * font_size)))
 
-    pygame.display.update()
 
-    for event in pygame.event.get():
-        if event.type == QUIT:
-            pygame.quit()
-    fpsClock.tick(30)
+    def main(self):
+        # Blit everything to the screen
+        self.screen.blit(self.background, (0, 0))
+        pygame.display.flip()
 
-print len(level1Locations)
-print level1Locations
+        grid = Grid("level1.txt")
+        fields_grid = grid.generate_grid(self.height, self.width)
+        self.adjust_screen(fields_grid[-1][-1])
+        for x in fields_grid:
+            for f in x:
+                pygame.draw.rect(self.screen, f.color, (f.xpos,f.ypos, f.sizex, f.sizey), 0)
+
+
+
+        # Event loop
+        while 1:
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    return
+
+            pygame.display.flip()
+
+if __name__ == '__main__':
+    Display(540, 960).main()
