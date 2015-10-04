@@ -15,6 +15,7 @@ class Display(object):
         self.background = pygame.Surface(self.screen.get_size())
         self.background.convert()
         self.background.fill(BLACK)
+        self.clock = pygame.time.Clock()
 
     def adjust_screen(self, bottom_right_field):
         """adjusts the screen if fields don't take up all display"""
@@ -41,6 +42,7 @@ class Display(object):
                     return
 
             pygame.display.flip()
+            self.clock.tick(30)
 
 if __name__ == '__main__':
     Display(540, 960).main()
