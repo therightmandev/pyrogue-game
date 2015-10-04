@@ -63,4 +63,3 @@ class Grid(object):
             for y in x:
                 print y.sizex
                 print y.sizey
-

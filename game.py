@@ -22,9 +22,6 @@ class Display(object):
         height = bottom_right_field.ypos + bottom_right_field.sizey
         self.screen = pygame.display.set_mode((width, height))
 
-
-
-
     def main(self):
         # Blit everything to the screen
         self.screen.blit(self.background, (0, 0))
@@ -36,8 +33,6 @@ class Display(object):
         for x in fields_grid:
             for f in x:
                 pygame.draw.rect(self.screen, f.color, (f.xpos,f.ypos, f.sizex, f.sizey), 0)
-
-
 
         # Event loop
         while 1:
