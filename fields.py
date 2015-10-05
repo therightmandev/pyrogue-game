@@ -22,7 +22,7 @@ class Field(object):
 class Player(Field):
     """player class, inheriting from Field as it's still a field"""
     def __init__(self, xpos, ypos, sizex, sizey, name):
-        Field.__init(self, xpos, ypos, sizex, sizey)
+        Field.__init__(self, xpos, ypos, sizex, sizey)
         self.color = GREEN
         self.name = name
 
