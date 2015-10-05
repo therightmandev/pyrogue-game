@@ -6,8 +6,8 @@ BLACK = (0,0,0)
 WHITE = (255,255,255)
 
 
-class Display(object):
-    """handles pygame main loop, display etc."""
+class Game(object):
+    """Where the game runs"""
     def __init__(self, height, width):
         pygame.init()
         self.height, self.width = height, width
@@ -45,4 +45,4 @@ class Display(object):
             self.clock.tick(30)
 
 if __name__ == '__main__':
-    Display(540, 960).main()
+    Game(540, 960).main()
