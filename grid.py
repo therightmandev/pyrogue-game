@@ -50,6 +50,8 @@ class Grid(object):
                     new_field = Wall(x_pos, y_pos, field_xsize, field_ysize)
                 if char == '.':
                     new_field = Floor(x_pos, y_pos, field_xsize, field_ysize)
+                if char == '@':
+                    new_field = Player(x_pos, y_pos, field_xsize, field_ysize, "Caveman")
                 fields_row.append(new_field)
                 x_pos += field_xsize
             all_fields.append(fields_row)

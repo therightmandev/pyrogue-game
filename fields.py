@@ -19,6 +19,13 @@ class Field(object):
     def details(self):
         print "Type: " + self.__class__.__name__
 
+class Player(Field):
+    """player class, inheriting from Field as it's still a field"""
+    def __init__(self, xpos, ypos, sizex, sizey, name):
+        Field.__init(self, xpos, ypos, sizex, sizey)
+        self.color = GREEN
+        self.name = name
+
 
 class Wall(Field):
     def __init__(self, xpos, ypos, sizex, sizey):
