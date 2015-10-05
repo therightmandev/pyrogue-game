@@ -7,7 +7,7 @@ class Grid(object):
         self.level_list = self.open_level(level_file)
 
     def open_level(self, level_file):
-        filepath = "res\\"+level_file
+        filepath = "res/"+level_file
         try:
             level = open(filepath)
         except:
