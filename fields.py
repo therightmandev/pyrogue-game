@@ -25,13 +25,13 @@ class Player(Field):
         Field.__init__(self, xpos, ypos, sizex, sizey)
         self.color = GREEN
         self.name = name
-    def stats(self):
         self.stats = {'strength': 1,
                      'attack': 5,
                      'defence': 4,
                      'level': 1,
                      'current_hp': 10}
-        return stats
+    def stats(self):
+        return self.stats['strength']
 
 
 class Wall(Field):

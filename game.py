@@ -6,6 +6,7 @@ from fields import Player
 BLACK = (0,0,0)
 WHITE = (255,255,255)
 
+player = Player(1, 1, 1, 1, 1)
 
 class Game(object):
     """Where the game runs"""
@@ -17,16 +18,16 @@ class Game(object):
         self.background.convert()
         self.background.fill(BLACK)
         self.clock = pygame.time.Clock()
-        
+
         self.font = pygame.font.SysFont('Arial', 25)
         pygame.display.set_caption('PyRogue')
 
         pygame.display.update()
 
-    player = Player()
-    def display_stats():
+
+    def display_stats(self):
         char_stats = player.stats()
-        return char_stats 
+        return char_stats
 
 
     def adjust_screen(self, bottom_right_field):
@@ -41,12 +42,13 @@ class Game(object):
         pygame.display.flip()
 
         grid = Grid("level1.txt")
+
         fields_grid = grid.generate_grid(self.height, self.width)
         self.adjust_screen(fields_grid[-1][-1])
         for x in fields_grid:
             for f in x:
                 pygame.draw.rect(self.screen, f.color, (f.xpos,f.ypos, f.sizex, f.sizey), 0)
-        
+
 
 
 
@@ -55,7 +57,7 @@ class Game(object):
             for event in pygame.event.get():
                 if event.type == QUIT:
                     return
-            stats = display_stats() 
+            stats = self.display_stats()
             pygame.draw.rect(self.screen, (BLACK), (5, 10, 200, 100), 2)
             self.screen.blit(self.font.render('strength:', True, (255,0,0)), (10, 10))
             pygame.display.flip()
