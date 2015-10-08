@@ -49,9 +49,6 @@ class Game(object):
             for f in x:
                 pygame.draw.rect(self.screen, f.color, (f.xpos,f.ypos, f.sizex, f.sizey), 0)
 
-
-
-
         # Event loop
         while 1:
             for event in pygame.event.get():
