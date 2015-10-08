@@ -31,7 +31,7 @@ class Player(Field):
                      'defence': 4,
                      'level': 1,
                      'current_hp': 10}
-        return stats
+        return self.stats
 
 
 class Wall(Field):

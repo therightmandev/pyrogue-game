@@ -23,7 +23,7 @@ class Game(object):
 
         pygame.display.update()
 
-    player = Player()
+        player = Player()
     def display_stats():
         char_stats = player.stats()
         return char_stats 
