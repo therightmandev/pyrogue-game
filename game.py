@@ -5,9 +5,56 @@ from fields import Player
 
 BLACK = (0,0,0)
 WHITE = (255,255,255)
+RED = (255, 0, 0)
+OFF_RED = (230, 20, 20)
 
 
 player = Player(1, 1, 1, 1, 1)
+
+'''
+###----TEXT_CLASS----###################################################################################################
+class Text(Game):
+    def __init__(self):
+        pygame.init()
+        self.small_font = pygame.font.SysFont("Arial", 25)
+        self.big_font = pygame.font.SysFont("Arial", 75)
+
+    def text_objects(self, text, color, font_type):
+
+        text_surface = font_type.render(text, True, color)
+        return text_surface, text_surface.get_rect()
+
+    def message_to_screen(self, msg, coords, color, font_type):
+
+        text_surface, text_rect = Text.text_objects(self, msg, color, font_type)
+        #print(text_rect)
+        text_rect.center = coords
+        gameDisplay.blit(text_surface, text_rect)
+
+    def message_to_screen_left_corner(self, msg, coords, color, font_type):
+
+        screen_text = font_type.render(msg, True, color)
+        gameDisplay.blit(screen_text, coords)
+
+    def message_to_screen_right_corner(self, msg, coords, color, font_type):
+
+        text_surface, text_rect = Text.text_objects(self, msg, color, font_type)
+        text_rect_width = text_surface.get_width()
+        text_rect_height = text_surface.get_height()
+        text_rect.center = int(coords[0] - text_rect_width/2), int(coords[1] + text_rect_height/2)
+        gameDisplay.blit(text_surface, text_rect)
+
+    def display_stats(self, stats_dict):
+
+        self.stats = stats_dict
+        self.display.blit(self.small_font.render('strength:' + str(stats['strength']), True, (255,0,0)), (10, 10))
+
+text_class = Text()
+
+'''
+
+
+
 
 class Game(object):
     """Where the game runs"""
@@ -20,16 +67,21 @@ class Game(object):
         self.background.fill(BLACK)
         self.clock = pygame.time.Clock()
 
-        self.font = pygame.font.SysFont('Arial', 25)
+
+        self.small_font = pygame.font.SysFont("Arial", 25)
+        self.big_font = pygame.font.SysFont("Arial", 75)
         pygame.display.set_caption('PyRogue')
 
         pygame.display.update()
 
 
-    def display_stats(self):
+    def get_stats(self):
         char_stats = player.stats()
         return char_stats
 
+    def display_stats(self, stats_dict):
+        self.stats = stats_dict
+        self.screen.blit(self.small_font.render('strength:' + str(stats_dict['strength']), True, (OFF_RED)), (10, 10))
 
     def adjust_screen(self, bottom_right_field):
         """adjusts the screen if fields don't take up all display"""
@@ -54,9 +106,9 @@ class Game(object):
             for event in pygame.event.get():
                 if event.type == QUIT:
                     return
-            stats = self.display_stats()
+            stats = self.get_stats()
             pygame.draw.rect(self.screen, (BLACK), (5, 10, 200, 100), 2)
-            self.screen.blit(self.font.render('strength:' + str(stats['strength']), True, (255,0,0)), (10, 10))
+            self.display_stats(stats)
             pygame.display.flip()
             self.clock.tick(30)
 if __name__ == '__main__':
