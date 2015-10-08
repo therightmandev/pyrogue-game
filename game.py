@@ -9,53 +9,6 @@ RED = (255, 0, 0)
 OFF_RED = (230, 20, 20)
 
 
-player = Player(1, 1, 1, 1, 1)
-
-'''
-###----TEXT_CLASS----###################################################################################################
-class Text(Game):
-    def __init__(self):
-        pygame.init()
-        self.small_font = pygame.font.SysFont("Arial", 25)
-        self.big_font = pygame.font.SysFont("Arial", 75)
-
-    def text_objects(self, text, color, font_type):
-
-        text_surface = font_type.render(text, True, color)
-        return text_surface, text_surface.get_rect()
-
-    def message_to_screen(self, msg, coords, color, font_type):
-
-        text_surface, text_rect = Text.text_objects(self, msg, color, font_type)
-        #print(text_rect)
-        text_rect.center = coords
-        gameDisplay.blit(text_surface, text_rect)
-
-    def message_to_screen_left_corner(self, msg, coords, color, font_type):
-
-        screen_text = font_type.render(msg, True, color)
-        gameDisplay.blit(screen_text, coords)
-
-    def message_to_screen_right_corner(self, msg, coords, color, font_type):
-
-        text_surface, text_rect = Text.text_objects(self, msg, color, font_type)
-        text_rect_width = text_surface.get_width()
-        text_rect_height = text_surface.get_height()
-        text_rect.center = int(coords[0] - text_rect_width/2), int(coords[1] + text_rect_height/2)
-        gameDisplay.blit(text_surface, text_rect)
-
-    def display_stats(self, stats_dict):
-
-        self.stats = stats_dict
-        self.display.blit(self.small_font.render('strength:' + str(stats['strength']), True, (255,0,0)), (10, 10))
-
-text_class = Text()
-
-'''
-
-
-
-
 class Game(object):
     """Where the game runs"""
     def __init__(self, height, width):
@@ -75,11 +28,13 @@ class Game(object):
         pygame.display.update()
 
 
-    def get_stats(self):
+    def get_stats(self, player):
+        '''get player stats'''
         char_stats = player.stats()
         return char_stats
 
     def display_stats(self, stats_dict):
+        '''render stats to the screen'''
         self.stats = stats_dict
         self.screen.blit(self.small_font.render('strength:' + str(stats_dict['strength']), True, (OFF_RED)), (10, 10))
 
@@ -97,17 +52,35 @@ class Game(object):
         grid = Grid("level1.txt")
         fields_grid = grid.generate_grid(self.height, self.width)
         self.adjust_screen(fields_grid[-1][-1])
-        for x in fields_grid:
-            for f in x:
-                pygame.draw.rect(self.screen, f.color, (f.xpos,f.ypos, f.sizex, f.sizey), 0)
+
+
 
         # Event loop
         while 1:
+            for x in fields_grid:
+                for f in x:
+                    if f.__class__.__name__ == "Wall" or f.__class__.__name__ == "Floor":
+                        pygame.draw.rect(self.screen, f.color, (f.xpos,f.ypos, f.sizex, f.sizey), 0)
+                    if f.__class__.__name__ == "Player":
+                        player = f
+                        player_index = x.index(f)
+                        player_row = fields_grid.index(x)
+            pygame.draw.rect(self.screen, player.color, (player.xpos, player.ypos, player.sizex, player.sizey), 0)
+
             for event in pygame.event.get():
                 if event.type == QUIT:
                     return
-            stats = self.get_stats()
-            pygame.draw.rect(self.screen, (BLACK), (5, 10, 200, 100), 2)
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_w:
+                        player.ypos -= player.sizey
+                    if event.key == pygame.K_s:
+                        player.ypos += player.sizey
+                    if event.key == pygame.K_a:
+                        player.xpos -= player.sizex
+                    if event.key == pygame.K_d:
+                        player.xpos += player.sizex
+                    fields_grid[player_row][player_index] = player
+            stats = self.get_stats(player)
             self.display_stats(stats)
             pygame.display.flip()
             self.clock.tick(30)

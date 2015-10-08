@@ -19,10 +19,13 @@ class Field(object):
     def details(self):
         print "Type: " + self.__class__.__name__
 
-class Player(Field):
+class Player(object):
     """player class, inheriting from Field as it's still a field"""
     def __init__(self, xpos, ypos, sizex, sizey, name):
-        Field.__init__(self, xpos, ypos, sizex, sizey)
+        self.xpos = xpos
+        self.ypos = ypos
+        self.sizex = sizex
+        self.sizey = sizey
         self.color = GREEN
         self.name = name
         self.strength = 1
