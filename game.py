@@ -6,6 +6,7 @@ from fields import Player
 BLACK = (0,0,0)
 WHITE = (255,255,255)
 
+
 player = Player(1, 1, 1, 1, 1)
 
 class Game(object):
@@ -42,7 +43,6 @@ class Game(object):
         pygame.display.flip()
 
         grid = Grid("level1.txt")
-
         fields_grid = grid.generate_grid(self.height, self.width)
         self.adjust_screen(fields_grid[-1][-1])
         for x in fields_grid:
@@ -59,7 +59,7 @@ class Game(object):
                     return
             stats = self.display_stats()
             pygame.draw.rect(self.screen, (BLACK), (5, 10, 200, 100), 2)
-            self.screen.blit(self.font.render('strength:', True, (255,0,0)), (10, 10))
+            self.screen.blit(self.font.render('strength:' + str(stats['strength']), True, (255,0,0)), (10, 10))
             pygame.display.flip()
             self.clock.tick(30)
 if __name__ == '__main__':
