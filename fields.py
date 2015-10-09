@@ -14,7 +14,6 @@ class Field(object):
         self.sizey = sizey
 
     def is_free(self):
-        print "free checking"
         if self.__class__.__name__ == "Wall":
             print "wall"
             return False

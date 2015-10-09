@@ -18,7 +18,6 @@ class Event_Handler(object):
             for i in j:
                 if i.__class__.__name__ != "Player":
                     if i.xpos == x and i.ypos == y:
-                        print "found"
                         if i.is_free():
                             return True
 
