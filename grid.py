@@ -54,7 +54,7 @@ class Grid(object):
                     new_field = Floor(x_pos, y_pos, field_xsize, field_ysize)
                     fields_row.append(new_field)
                 if char == '@':
-                    player = Player(x_pos, y_pos, field_xsize, field_ysize, "Caveman")
+                    player = Player(x_pos, y_pos, field_xsize, field_ysize, "Caveman", 0, 0)
                     new_field1 = Floor(x_pos, y_pos, field_xsize, field_ysize)
                     print "appended player"
                     fields_row.append(new_field1)

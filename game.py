@@ -85,12 +85,15 @@ class Game(object):
             for event in pygame.event.get():
                 events = Event_Handler()
                 self.gameExit = events.quit_game(event)
-                player.xpos, player.ypos = events.player_moves(event, player.xpos, player.ypos, player.sizex, player.sizey, fields_grid)
+                player.xmov, player.ymov = events.player_moves(event, player.xpos, player.ypos, player.sizex, player.sizey, fields_grid, player.xmov, player.ymov)
                 fields_grid[player_row][player_index] = player
+            player.xpos += player.xmov
+            player.ypos += player.ymov
 
             stats = self.get_stats(player)
             self.display_stats(stats)
             pygame.display.flip()
-            self.clock.tick(30)
+            self.clock.tick(10)
+
 if __name__ == '__main__':
     Game(540, 960).main()
