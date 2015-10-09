@@ -1,4 +1,4 @@
-GREEN = (0,255,0)
+BLUE = (0,0,255)
 
 class Player(object):
     """player class, inheriting from Field as it's still a field"""
@@ -9,7 +9,7 @@ class Player(object):
         self.ymov = ymov
         self.sizex = sizex
         self.sizey = sizey
-        self.color = GREEN
+        self.color = BLUE
         self.name = name
         self.strength = 1
         self.attack = 5
