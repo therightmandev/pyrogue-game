@@ -1,3 +1,5 @@
+GREEN = (0,255,0)
+
 class Player(object):
     """player class, inheriting from Field as it's still a field"""
     def __init__(self, xpos, ypos, sizex, sizey, name):
