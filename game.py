@@ -3,6 +3,7 @@ from pygame.locals import *
 from grid import Grid
 from fields import Player
 
+
 BLACK = (0,0,0)
 WHITE = (255,255,255)
 RED = (255, 0, 0)
@@ -36,13 +37,31 @@ class Game(object):
     def display_stats(self, stats_dict):
         '''render stats to the screen'''
         self.stats = stats_dict
-        self.screen.blit(self.small_font.render('strength:' + str(stats_dict['strength']), True, (OFF_RED)), (10, 10))
+        pygame.draw.rect(self.screen, (BLACK), (7, 10, 150, 120), 3)
+        self.screen.blit(self.small_font.render('level: ' + str(stats_dict['level']), True, (OFF_RED)), (10, 10))
+        self.screen.blit(self.small_font.render('HP: ' + str(stats_dict['current_hp']), True, (OFF_RED)), (10, 30))
+        self.screen.blit(self.small_font.render('strength: ' + str(stats_dict['strength']), True, (OFF_RED)), (10, 50))
+        self.screen.blit(self.small_font.render('attack : ' + str(stats_dict['attack']), True, (OFF_RED)), (10, 70))
+        self.screen.blit(self.small_font.render('defence: ' + str(stats_dict['defence']), True, (OFF_RED)), (10,  90))
+
 
     def adjust_screen(self, bottom_right_field):
         """adjusts the screen if fields don't take up all display"""
         width = bottom_right_field.xpos + bottom_right_field.sizex
         height = bottom_right_field.ypos + bottom_right_field.sizey
         self.screen = pygame.display.set_mode((width, height))
+
+    def can_move(self, x, y, grid):
+        '''checks if the player can move to a (x, y) position'''
+        self.x = x
+        self.y = y
+        for j in grid:
+            for i in j:
+                if i.__class__.__name__ != "Player":
+                    if i.xpos == x and i.ypos == y:
+                        print "found"
+                        if i.is_free():
+                            return True
 
     def main(self):
         # Blit everything to the screen
@@ -72,13 +91,17 @@ class Game(object):
                     return
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_w:
-                        player.ypos -= player.sizey
+                        if self.can_move(player.xpos, player.ypos - player.sizey, fields_grid):
+                            player.ypos -= player.sizey
                     if event.key == pygame.K_s:
-                        player.ypos += player.sizey
+                        if self.can_move(player.xpos, player.ypos + player.sizey, fields_grid):
+                            player.ypos += player.sizey
                     if event.key == pygame.K_a:
-                        player.xpos -= player.sizex
+                        if self.can_move(player.xpos - player.sizex, player.ypos, fields_grid):
+                            player.xpos -= player.sizex
                     if event.key == pygame.K_d:
-                        player.xpos += player.sizex
+                        if self.can_move(player.xpos + player.sizex, player.ypos, fields_grid):
+                            player.xpos += player.sizex
                     fields_grid[player_row][player_index] = player
             stats = self.get_stats(player)
             self.display_stats(stats)

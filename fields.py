@@ -14,7 +14,12 @@ class Field(object):
         self.sizey = sizey
 
     def is_free(self):
-        return self.__class__.__name__ == 'Free'
+        print "free checking"
+        if self.__class__.__name__ == "Wall":
+            print "wall"
+            return False
+        elif self.__class__.__name__ == "Floor":
+            return True
 
     def details(self):
         print "Type: " + self.__class__.__name__
