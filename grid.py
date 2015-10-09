@@ -27,21 +27,28 @@ class Grid(object):
                 longest = len(row)
         return longest
 
+    def get_middle_x(self):
+        self.longest_row = self.get_longest_row()
+        self.middlex = self.longest_row / 2
+        return self.middlex
+
     def generate_grid(self, screen_height, screen_width):
         """returns a list of ready to draw Fields"""
         # calculating field size
         row_count = self.get_longest_row()
-        field_xsize = 0
-        field_ysize = 0
+        field_xsize = 30
+        field_ysize = 30
         if screen_height == screen_width: # if screen is square
             field_xsize = screen_height / row_count
             field_ysize = screen_height / row_count
-        field_xsize = screen_width / row_count # field width is fitted to screen
-        field_ysize = screen_height / len(self.level_list) # field height is fitted to screen
+        field_xsize = screen_width / row_count - 1 # field width is fitted to screen
+        field_ysize = screen_width / row_count - 1 # field height is fitted to screen
 
         # coordinates of fields on screen
-        x_pos = 0
-        y_pos = 0
+        middle = self.get_middle_x()
+        print middle
+        x_pos = screen_width/2 - middle * field_xsize
+        y_pos = screen_width/2 - middle * field_xsize
 
         all_fields = []
         for row in self.level_list:
@@ -61,7 +68,7 @@ class Grid(object):
                     fields_row.append(player)
                 x_pos += field_xsize
             all_fields.append(fields_row)
-            x_pos = 0
+            x_pos = screen_width/2 - middle * field_xsize
             y_pos += field_ysize
         return all_fields
 
