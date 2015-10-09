@@ -1,4 +1,5 @@
 from fields import *
+from player import Player
 
 
 class Grid(object):
@@ -48,11 +49,16 @@ class Grid(object):
             for char in row:
                 if char == '#':
                     new_field = Wall(x_pos, y_pos, field_xsize, field_ysize)
+                    fields_row.append(new_field)
                 if char == '.':
                     new_field = Floor(x_pos, y_pos, field_xsize, field_ysize)
+                    fields_row.append(new_field)
                 if char == '@':
-                    new_field = Player(x_pos, y_pos, field_xsize, field_ysize, "Caveman")
-                fields_row.append(new_field)
+                    player = Player(x_pos, y_pos, field_xsize, field_ysize, "Caveman")
+                    new_field1 = Floor(x_pos, y_pos, field_xsize, field_ysize)
+                    print "appended player"
+                    fields_row.append(new_field1)
+                    fields_row.append(player)
                 x_pos += field_xsize
             all_fields.append(fields_row)
             x_pos = 0

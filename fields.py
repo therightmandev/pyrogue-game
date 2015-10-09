@@ -14,26 +14,26 @@ class Field(object):
         self.sizey = sizey
 
     def is_free(self):
-        return self.__class__.__name__ == 'Free'
+        print "free checking"
+        if self.__class__.__name__ == "Wall":
+            print "wall"
+            return False
+        elif self.__class__.__name__ == "Floor":
+            return True
 
     def details(self):
         print "Type: " + self.__class__.__name__
-
-class Player(Field):
-    """player class, inheriting from Field as it's still a field"""
-    def __init__(self, xpos, ypos, sizex, sizey, name):
-        Field.__init__(self, xpos, ypos, sizex, sizey)
-        self.color = GREEN
-        self.name = name
 
 
 class Wall(Field):
     def __init__(self, xpos, ypos, sizex, sizey):
         Field.__init__(self, xpos, ypos, sizex, sizey)
         self.color = BROWN
+        self.free = False
 
 
 class Floor(Field):
     def __init__(self, xpos, ypos, sizex, sizey):
         Field.__init__(self, xpos, ypos, sizex, sizey)
         self.color = GRAY
+        self.free = True
