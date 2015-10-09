@@ -87,8 +87,10 @@ class Game(object):
                 self.gameExit = events.quit_game(event)
                 player.xmov, player.ymov = events.player_moves(event, player.xpos, player.ypos, player.sizex, player.sizey, fields_grid, player.xmov, player.ymov)
                 fields_grid[player_row][player_index] = player
-            player.xpos += player.xmov
-            player.ypos += player.ymov
+            if events.can_move(player.xpos + player.xmov, player.ypos, fields_grid):
+                player.xpos += player.xmov
+            if events.can_move(player.xpos, player.ypos + player.ymov, fields_grid):
+                player.ypos += player.ymov
 
             stats = self.get_stats(player)
             self.display_stats(stats)
