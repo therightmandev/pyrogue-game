@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import *
 from grid import Grid
-from fields import Player
+from player import Player
 
 
 BLACK = (0,0,0)

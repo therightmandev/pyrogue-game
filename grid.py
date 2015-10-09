@@ -1,4 +1,5 @@
 from fields import *
+from player import Player
 
 
 class Grid(object):
