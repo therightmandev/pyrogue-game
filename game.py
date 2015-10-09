@@ -9,6 +9,7 @@ BLACK = (0,0,0)
 WHITE = (255,255,255)
 RED = (255, 0, 0)
 OFF_RED = (230, 20, 20)
+DARK_GREY = (30, 30, 30)
 
 
 class Game(object):
@@ -19,7 +20,7 @@ class Game(object):
         self.screen = pygame.display.set_mode((self.width, self.height))
         self.background = pygame.Surface(self.screen.get_size())
         self.background.convert()
-        self.background.fill(BLACK)
+        self.background.fill(DARK_GREY)
         self.clock = pygame.time.Clock()
         self.gameExit = False
 
@@ -74,7 +75,7 @@ class Game(object):
 
         grid = Grid("level1.txt")
         fields_grid = grid.generate_grid(self.height, self.width)
-        self.adjust_screen(fields_grid[-1][-1])
+        #self.adjust_screen(fields_grid[-1][-1])
 
 
 
@@ -95,7 +96,7 @@ class Game(object):
             stats = self.get_stats(player)
             self.display_stats(stats)
             pygame.display.flip()
-            self.clock.tick(10)
+            self.clock.tick(30)
 
 if __name__ == '__main__':
-    Game(540, 960).main()
+    Game(640, 1060).main()

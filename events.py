@@ -39,15 +39,19 @@ class Event_Handler(object):
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_w:
                 if self.can_move(plr_x, plr_y - size_y, grid):
-                    ymov = 0
+                    if ymov < 0:
+                        ymov = 0
             if event.key == pygame.K_s:
                 if self.can_move(plr_x, plr_y + size_y, grid):
-                    ymov = 0
+                    if ymov > 0:
+                        ymov = 0
             if event.key == pygame.K_a:
                 if self.can_move(plr_x - size_x, plr_y, grid):
-                    xmov = 0
+                    if xmov < 0:
+                        xmov = 0
             if event.key == pygame.K_d:
                 if self.can_move(plr_x + size_x, plr_y, grid):
-                    xmov = 0
+                    if xmov > 0:
+                        xmov = 0
 
         return xmov, ymov
