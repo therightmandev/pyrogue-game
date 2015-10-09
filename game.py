@@ -3,6 +3,7 @@ from pygame.locals import *
 from grid import Grid
 from fields import Player
 
+
 BLACK = (0,0,0)
 WHITE = (255,255,255)
 RED = (255, 0, 0)
@@ -36,7 +37,13 @@ class Game(object):
     def display_stats(self, stats_dict):
         '''render stats to the screen'''
         self.stats = stats_dict
-        self.screen.blit(self.small_font.render('strength:' + str(stats_dict['strength']), True, (OFF_RED)), (10, 10))
+        pygame.draw.rect(self.screen, (BLACK), (7, 10, 150, 120), 3)
+        self.screen.blit(self.small_font.render('level: ' + str(stats_dict['level']), True, (OFF_RED)), (10, 10))
+        self.screen.blit(self.small_font.render('HP: ' + str(stats_dict['current_hp']), True, (OFF_RED)), (10, 30))
+        self.screen.blit(self.small_font.render('strength: ' + str(stats_dict['strength']), True, (OFF_RED)), (10, 50))
+        self.screen.blit(self.small_font.render('attack : ' + str(stats_dict['attack']), True, (OFF_RED)), (10, 70))
+        self.screen.blit(self.small_font.render('defence: ' + str(stats_dict['defence']), True, (OFF_RED)), (10,  90))
+
 
     def adjust_screen(self, bottom_right_field):
         """adjusts the screen if fields don't take up all display"""
