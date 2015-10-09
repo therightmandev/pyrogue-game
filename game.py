@@ -48,12 +48,13 @@ class Game(object):
 
 
     def adjust_screen(self, bottom_right_field):
-        """adjusts the screen if fields don't take up all display"""
+        '''adjusts the screen if fields don't take up all display'''
         width = bottom_right_field.xpos + bottom_right_field.sizex
         height = bottom_right_field.ypos + bottom_right_field.sizey
         self.screen = pygame.display.set_mode((width, height))
 
     def draw_grid(self, grid):
+        '''draws the grid and returns the player object'''
         for x in grid:
             for f in x:
                 if f.__class__.__name__ == "Wall" or f.__class__.__name__ == "Floor":

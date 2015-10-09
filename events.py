@@ -6,6 +6,7 @@ class Event_Handler(object):
         pass
 
     def quit_game(self, event):
+        '''quits the game if 'x' is pressed'''
         if event.type == QUIT:
             return True
 
@@ -22,6 +23,7 @@ class Event_Handler(object):
                             return True
 
     def player_moves(self, event, plr_x, plr_y, size_x, size_y, grid):
+        '''handles player moves'''
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_w:
                 if self.can_move(plr_x, plr_y - size_y, grid):
