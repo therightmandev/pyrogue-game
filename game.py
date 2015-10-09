@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import *
 from grid import Grid
 from player import Player
+from events import Event_Handler
 
 
 BLACK = (0,0,0)
@@ -20,6 +21,7 @@ class Game(object):
         self.background.convert()
         self.background.fill(BLACK)
         self.clock = pygame.time.Clock()
+        self.gameExit = False
 
 
         self.small_font = pygame.font.SysFont("Arial", 25)
@@ -51,17 +53,18 @@ class Game(object):
         height = bottom_right_field.ypos + bottom_right_field.sizey
         self.screen = pygame.display.set_mode((width, height))
 
-    def can_move(self, x, y, grid):
-        '''checks if the player can move to a (x, y) position'''
-        self.x = x
-        self.y = y
-        for j in grid:
-            for i in j:
-                if i.__class__.__name__ != "Player":
-                    if i.xpos == x and i.ypos == y:
-                        print "found"
-                        if i.is_free():
-                            return True
+    def draw_grid(self, grid):
+        for x in grid:
+            for f in x:
+                if f.__class__.__name__ == "Wall" or f.__class__.__name__ == "Floor":
+                    pygame.draw.rect(self.screen, f.color, (f.xpos,f.ypos, f.sizex, f.sizey), 0)
+                if f.__class__.__name__ == "Player":
+                    player = f
+                    player_index = x.index(f)
+                    player_row = grid.index(x)
+        pygame.draw.rect(self.screen, player.color, (player.xpos, player.ypos, player.sizex, player.sizey), 0)
+        return player, player_row, player_index
+
 
     def main(self):
         # Blit everything to the screen
@@ -75,34 +78,15 @@ class Game(object):
 
 
         # Event loop
-        while 1:
-            for x in fields_grid:
-                for f in x:
-                    if f.__class__.__name__ == "Wall" or f.__class__.__name__ == "Floor":
-                        pygame.draw.rect(self.screen, f.color, (f.xpos,f.ypos, f.sizex, f.sizey), 0)
-                    if f.__class__.__name__ == "Player":
-                        player = f
-                        player_index = x.index(f)
-                        player_row = fields_grid.index(x)
-            pygame.draw.rect(self.screen, player.color, (player.xpos, player.ypos, player.sizex, player.sizey), 0)
+        while not self.gameExit:
+            player, player_row, player_index = self.draw_grid(fields_grid)
 
             for event in pygame.event.get():
-                if event.type == QUIT:
-                    return
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_w:
-                        if self.can_move(player.xpos, player.ypos - player.sizey, fields_grid):
-                            player.ypos -= player.sizey
-                    if event.key == pygame.K_s:
-                        if self.can_move(player.xpos, player.ypos + player.sizey, fields_grid):
-                            player.ypos += player.sizey
-                    if event.key == pygame.K_a:
-                        if self.can_move(player.xpos - player.sizex, player.ypos, fields_grid):
-                            player.xpos -= player.sizex
-                    if event.key == pygame.K_d:
-                        if self.can_move(player.xpos + player.sizex, player.ypos, fields_grid):
-                            player.xpos += player.sizex
-                    fields_grid[player_row][player_index] = player
+                events = Event_Handler()
+                self.gameExit = events.quit_game(event)
+                player.xpos, player.ypos = events.player_moves(event, player.xpos, player.ypos, player.sizex, player.sizey, fields_grid)
+                fields_grid[player_row][player_index] = player
+
             stats = self.get_stats(player)
             self.display_stats(stats)
             pygame.display.flip()
