@@ -15,7 +15,6 @@ class Field(object):
 
     def is_free(self):
         if self.__class__.__name__ == "Wall":
-            print "wall"
             return False
         elif self.__class__.__name__ == "Floor":
             return True
