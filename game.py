@@ -48,7 +48,7 @@ class Game(object):
         self.screen.blit(self.text.small_font.render('HP: ' + str(stats_dict['current_hp']), False, (WHITE)), (10, 30))
         self.screen.blit(self.text.small_font.render('Strength: ' + str(stats_dict['strength']), False, (WHITE)), (10, 50))
         self.screen.blit(self.text.small_font.render('Attack : ' + str(stats_dict['attack']), False, (WHITE)), (10, 70))
-        self.screen.blit(self.text.small_font.render('Desence: ' + str(stats_dict['defense']), False, (WHITE)), (10,  90))
+        self.screen.blit(self.text.small_font.render('Defence: ' + str(stats_dict['defense']), False, (WHITE)), (10,  90))
         render_list = []
         render_list.append(self.text.text_by_center("CENTER", (self.width/2, self.height/2), WHITE, self.text.big_font))
         render_list.append(self.text.text_by_top_left("TOP LEFT", (0, 0), WHITE, self.text.big_font))
