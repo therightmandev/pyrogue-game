@@ -19,7 +19,7 @@ class Player(object):
     def stats(self):
         stats = {'strength': self.strength,
                      'attack': self.attack,
-                     'defence': self.defense,
+                     'defense': self.defense,
                      'level': self.level,
                      'current_hp': self.current_hp}
         return stats

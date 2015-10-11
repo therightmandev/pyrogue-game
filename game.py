@@ -3,6 +3,7 @@ from pygame.locals import *
 from grid import Grid
 from player import Player
 from events import Event_Handler
+from text import Text
 
 
 BLACK = (0,0,0)
@@ -24,9 +25,11 @@ class Game(object):
         self.clock = pygame.time.Clock()
         self.gameExit = False
 
+        self.text = Text()
 
-        self.small_font = pygame.font.SysFont("Arial", 25)
-        self.big_font = pygame.font.SysFont("Arial", 75)
+
+        #self.small_font = pygame.font.SysFont("Arial", 25)
+        #self.big_font = pygame.font.SysFont("Arial", 75)
         pygame.display.set_caption('PyRogue')
 
         pygame.display.update()
@@ -41,11 +44,19 @@ class Game(object):
         '''render stats to the screen'''
         self.stats = stats_dict
         pygame.draw.rect(self.screen, (BLACK), (7, 10, 150, 120), 3)
-        self.screen.blit(self.small_font.render('level: ' + str(stats_dict['level']), True, (OFF_RED)), (10, 10))
-        self.screen.blit(self.small_font.render('HP: ' + str(stats_dict['current_hp']), True, (OFF_RED)), (10, 30))
-        self.screen.blit(self.small_font.render('strength: ' + str(stats_dict['strength']), True, (OFF_RED)), (10, 50))
-        self.screen.blit(self.small_font.render('attack : ' + str(stats_dict['attack']), True, (OFF_RED)), (10, 70))
-        self.screen.blit(self.small_font.render('defence: ' + str(stats_dict['defence']), True, (OFF_RED)), (10,  90))
+        self.screen.blit(self.text.small_font.render('Level: ' + str(stats_dict['level']), False, (WHITE)), (10, 10))
+        self.screen.blit(self.text.small_font.render('HP: ' + str(stats_dict['current_hp']), False, (WHITE)), (10, 30))
+        self.screen.blit(self.text.small_font.render('Strength: ' + str(stats_dict['strength']), False, (WHITE)), (10, 50))
+        self.screen.blit(self.text.small_font.render('Attack : ' + str(stats_dict['attack']), False, (WHITE)), (10, 70))
+        self.screen.blit(self.text.small_font.render('Desence: ' + str(stats_dict['defense']), False, (WHITE)), (10,  90))
+        render_list = []
+        render_list.append(self.text.text_by_center("CENTER", (self.width/2, self.height/2), WHITE, self.text.big_font))
+        render_list.append(self.text.text_by_top_left("TOP LEFT", (0, 0), WHITE, self.text.big_font))
+        render_list.append(self.text.text_by_top_right("TOP RIGHT", (self.width, 0), WHITE, self.text.big_font))
+        render_list.append(self.text.text_by_bot_left("BOT LEFT", (0, self.height), WHITE, self.text.big_font))
+        render_list.append(self.text.text_by_bot_right("BOT RIGHT", (self.width, self.height), WHITE, self.text.big_font))
+        for f in render_list:
+            self.screen.blit(f[0], f[1])
 
 
     def adjust_screen(self, bottom_right_field):
