@@ -3,7 +3,7 @@ from pygame.locals import *
 from grid import Grid
 from player import Player
 from events import Event_Handler
-from text import Text, Life_bar
+from screen_addons import Text, Life_bar
 
 
 BLACK = (0,0,0)
