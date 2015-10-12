@@ -25,33 +25,29 @@ class Event_Handler(object):
         '''handles player moves'''
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_w:
-                if self.can_move(plr_x, plr_y - size_y, grid):
-                    ymov = -size_y
+                ymov = -size_y
             if event.key == pygame.K_s:
-                if self.can_move(plr_x, plr_y + size_y, grid):
-                    ymov = size_y
+                ymov = size_y
             if event.key == pygame.K_a:
-                if self.can_move(plr_x - size_x, plr_y, grid):
-                    xmov = -size_x
+                xmov = -size_x
             if event.key == pygame.K_d:
-                if self.can_move(plr_x + size_x, plr_y, grid):
-                    xmov = size_x
+                xmov = size_x
+
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_w:
-                if self.can_move(plr_x, plr_y - size_y, grid):
-                    if ymov < 0:
-                        ymov = 0
+                if ymov < 0:
+                    ymov = 0
             if event.key == pygame.K_s:
-                if self.can_move(plr_x, plr_y + size_y, grid):
-                    if ymov > 0:
-                        ymov = 0
+                if ymov > 0:
+                    ymov = 0
             if event.key == pygame.K_a:
-                if self.can_move(plr_x - size_x, plr_y, grid):
-                    if xmov < 0:
-                        xmov = 0
+                if xmov < 0:
+                    xmov = 0
             if event.key == pygame.K_d:
-                if self.can_move(plr_x + size_x, plr_y, grid):
-                    if xmov > 0:
-                        xmov = 0
+                if xmov > 0:
+                    xmov = 0
+
+        y_mov = ymov
+        x_mov = xmov
 
         return xmov, ymov

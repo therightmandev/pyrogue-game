@@ -46,5 +46,17 @@ class Text(object):
         self.text_rect.center = int(coords[0] - self.text_rect_width/2), int(coords[1] - self.text_rect_height/2)
         return self.text_surf, self.text_rect
 
-class Life_bar():
-    pass
+class Life_bar(object):
+    def __init__(self, life, scr_width):
+
+        self.life = life
+        self.percent = (1 * life) / 10
+        self.totallength = (scr_width / 10) * 8
+        self.length = self.totallength * self.percent
+
+        if self.percent >= 50:
+            return "green"
+        elif self.percent >=25:
+            return "yellow"
+        elif self.percent < 25:
+            return "red"

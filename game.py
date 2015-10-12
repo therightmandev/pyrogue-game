@@ -3,7 +3,7 @@ from pygame.locals import *
 from grid import Grid
 from player import Player
 from events import Event_Handler
-from text import Text
+from text import Text, Life_bar
 
 
 BLACK = (0,0,0)
@@ -27,9 +27,6 @@ class Game(object):
 
         self.text = Text()
 
-
-        #self.small_font = pygame.font.SysFont("Arial", 25)
-        #self.big_font = pygame.font.SysFont("Arial", 75)
         pygame.display.set_caption('PyRogue')
 
         pygame.display.update()
@@ -49,13 +46,9 @@ class Game(object):
         self.screen.blit(self.text.small_font.render('Strength: ' + str(stats_dict['strength']), False, (WHITE)), (10, 50))
         self.screen.blit(self.text.small_font.render('Attack : ' + str(stats_dict['attack']), False, (WHITE)), (10, 70))
         self.screen.blit(self.text.small_font.render('Defence: ' + str(stats_dict['defense']), False, (WHITE)), (10,  90))
-        render_list = []
-        render_list.append(self.text.text_by_center("CENTER", (self.width/2, self.height/2), WHITE, self.text.big_font))
-        render_list.append(self.text.text_by_top_left("TOP LEFT", (0, 0), WHITE, self.text.big_font))
-        render_list.append(self.text.text_by_top_right("TOP RIGHT", (self.width, 0), WHITE, self.text.big_font))
-        render_list.append(self.text.text_by_bot_left("BOT LEFT", (0, self.height), WHITE, self.text.big_font))
-        render_list.append(self.text.text_by_bot_right("BOT RIGHT", (self.width, self.height), WHITE, self.text.big_font))
-        for f in render_list:
+
+        self.render_list = []
+        for f in self.render_list:
             self.screen.blit(f[0], f[1])
 
 
@@ -107,7 +100,7 @@ class Game(object):
             stats = self.get_stats(player)
             self.display_stats(stats)
             pygame.display.flip()
-            self.clock.tick(30)
+            self.clock.tick(20)
 
 if __name__ == '__main__':
     Game(640, 1060).main()
