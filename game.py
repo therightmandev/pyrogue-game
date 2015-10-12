@@ -27,6 +27,7 @@ class Game(object):
 
         self.text = Text()
 
+
         pygame.display.set_caption('PyRogue')
 
         pygame.display.update()
@@ -50,6 +51,11 @@ class Game(object):
         self.render_list = []
         for f in self.render_list:
             self.screen.blit(f[0], f[1])
+
+    def disp(self, life):
+        self.life_bar = Life_bar(life, self.width, self.height)
+        self.bar = self.life_bar.get_rect()
+        pygame.draw.rect(self.screen, self.bar[1], (self.bar[2]), self.bar[3])
 
 
     def adjust_screen(self, bottom_right_field):
@@ -85,6 +91,7 @@ class Game(object):
 
         # Event loop
         while not self.gameExit:
+            self.screen.blit(self.background, (0, 0))
             player, player_row, player_index = self.draw_grid(fields_grid)
 
             for event in pygame.event.get():
@@ -94,11 +101,14 @@ class Game(object):
                 fields_grid[player_row][player_index] = player
             if events.can_move(player.xpos + player.xmov, player.ypos, fields_grid):
                 player.xpos += player.xmov
+                if player.xmov > 0:
+                    player.current_hp = player.current_hp - 0.1
             if events.can_move(player.xpos, player.ypos + player.ymov, fields_grid):
                 player.ypos += player.ymov
 
             stats = self.get_stats(player)
             self.display_stats(stats)
+            self.disp(player.current_hp)
             pygame.display.flip()
             self.clock.tick(20)
 

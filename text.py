@@ -47,16 +47,27 @@ class Text(object):
         return self.text_surf, self.text_rect
 
 class Life_bar(object):
-    def __init__(self, life, scr_width):
+    def __init__(self, life, scr_width, scr_height):
 
+        self.width = scr_width
+        self.height = scr_height
         self.life = life
-        self.percent = (1 * life) / 10
-        self.totallength = (scr_width / 10) * 8
-        self.length = self.totallength * self.percent
+        self.percent = (100 * life) / 10
+        self.totallength = (self.width / 10) * 8
+        self.length = self.totallength * (self.percent/100)
+
+    def get_color(self):
 
         if self.percent >= 50:
-            return "green"
+            return (0, 255, 0)
         elif self.percent >=25:
-            return "yellow"
+            return (100, 30, 30)
         elif self.percent < 25:
-            return "red"
+            return (255, 0, 0)
+
+    def get_rect(self):
+
+        self.coords = (self.width/10, 0)
+        self.color = self.get_color()
+
+        return("SURFACE", self.color, (self.coords[0], self.coords[1], self.length, 20), 2)
