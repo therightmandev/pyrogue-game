@@ -51,19 +51,25 @@ class Life_bar(object):
 
         self.width = scr_width
         self.height = scr_height
-        self.life = life
-        self.percent = (100 * life) / 10
+        if life <= 0:
+            self.life = 0
+        else:
+            self.life = life
+        self.percent = (100 * self.life) / 10
         self.totallength = (self.width / 10) * 8
         self.length = self.totallength * (self.percent/100)
 
     def get_color(self):
 
         if self.percent >= 50:
-            return (0, 255, 0)
-        elif self.percent >=25:
-            return (100, 30, 30)
-        elif self.percent < 25:
-            return (255, 0, 0)
+            self.red = -(self.percent * 5.1) + 510
+            self.green = 255
+            return (self.red, self.green, 0)
+        elif self.percent <50:
+            self.red = 255
+            self.green = self.percent * 5.1
+            return (self.red, self.green, 0)
+
 
     def get_rect(self):
 
