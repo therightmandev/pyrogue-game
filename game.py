@@ -102,7 +102,7 @@ class Game(object):
             if events.can_move(player.xpos + player.xmov, player.ypos, fields_grid):
                 player.xpos += player.xmov
                 if player.xmov > 0:
-                    player.current_hp = player.current_hp - 0.1
+                    player.current_hp = player.current_hp - 0.2
             if events.can_move(player.xpos, player.ypos + player.ymov, fields_grid):
                 player.ypos += player.ymov
 

@@ -60,7 +60,7 @@ class Life_bar(object):
         self.length = self.totallength * (self.percent/100)
 
     def get_color(self):
-
+        '''calculates the color based on life percentage'''
         if self.percent >= 50:
             self.red = -(self.percent * 5.1) + 510
             self.green = 255
@@ -72,8 +72,8 @@ class Life_bar(object):
 
 
     def get_rect(self):
-
-        self.coords = (self.width/10, 0)
+        '''defines the rect that is going to be drawn'''
+        self.coords = (self.width/10, self.height/10)
         self.color = self.get_color()
 
         return("SURFACE", self.color, (self.coords[0], self.coords[1], self.length, 20), 2)
