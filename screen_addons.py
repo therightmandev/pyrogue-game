@@ -3,8 +3,8 @@ from pygame.locals import *
 
 class Text(object):
     def __init__(self):
-        self.small_font = pygame.font.SysFont("Arial", 25)
-        self.big_font = pygame.font.SysFont("Arial", 75)
+        self.small_font = pygame.font.Font(r"res/rudelsberg/Rudelsberg.ttf", 25)
+        self.big_font = pygame.font.Font(r"res/rudelsberg/Rudelsberg.ttf", 75)
 
     def text_object(self, text, color, kinda_font):
         '''returns the surface of a given text and font rendered'''

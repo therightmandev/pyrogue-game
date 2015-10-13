@@ -11,6 +11,8 @@ WHITE = (255,255,255)
 RED = (255, 0, 0)
 OFF_RED = (230, 20, 20)
 DARK_GREY = (30, 30, 30)
+A_BLUE = (5, 100, 240)
+
 
 
 class Game(object):
@@ -42,13 +44,14 @@ class Game(object):
         '''render stats to the screen'''
         self.stats = stats_dict
         pygame.draw.rect(self.screen, (BLACK), (7, 10, 150, 120), 3)
-        self.screen.blit(self.text.small_font.render('Level: ' + str(stats_dict['level']), False, (WHITE)), (10, 10))
-        self.screen.blit(self.text.small_font.render('HP: ' + str(stats_dict['current_hp']), False, (WHITE)), (10, 30))
-        self.screen.blit(self.text.small_font.render('Strength: ' + str(stats_dict['strength']), False, (WHITE)), (10, 50))
-        self.screen.blit(self.text.small_font.render('Attack : ' + str(stats_dict['attack']), False, (WHITE)), (10, 70))
-        self.screen.blit(self.text.small_font.render('Defence: ' + str(stats_dict['defense']), False, (WHITE)), (10,  90))
+        self.screen.blit(self.text.small_font.render('Level: ' + str(stats_dict['level']), False, (A_BLUE)), (10, 10))
+        self.screen.blit(self.text.small_font.render('HP: ' + str(stats_dict['current_hp']), False, (A_BLUE)), (10, 30))
+        self.screen.blit(self.text.small_font.render('Strength: ' + str(stats_dict['strength']), False, (A_BLUE)), (10, 50))
+        self.screen.blit(self.text.small_font.render('Attack : ' + str(stats_dict['attack']), False, (A_BLUE)), (10, 70))
+        self.screen.blit(self.text.small_font.render('Defence: ' + str(stats_dict['defense']), False, (A_BLUE)), (10,  90))
 
         self.render_list = []
+        self.render_list.append(self.text.text_by_bot_left(str(stats_dict['level']), (self.width/10, self.height/10*9), A_BLUE, self.text.big_font))
         for f in self.render_list:
             self.screen.blit(f[0], f[1])
 
