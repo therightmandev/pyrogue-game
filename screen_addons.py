@@ -58,7 +58,10 @@ class Life_bar(object):
             self.life = life
         self.percent = (100 * self.life) / 10
         self.totallength = (self.width / 10) * 8
+        self.bar_height = 20
         self.length = self.totallength * (self.percent/100)
+        self.fonsize = self.bar_height
+        self.life_font = pygame.font.Font(r"res/rudelsberg/Rudelsberg.ttf", self.fonsize)
 
     def get_color(self):
         '''calculates the color based on life percentage'''
@@ -72,9 +75,9 @@ class Life_bar(object):
             return (self.red, self.green, 0)
 
 
-    def get_rect(self):
+    def get_bar(self):
         '''defines the rect that is going to be drawn'''
         self.coords = (self.width/10, self.height/10)
         self.color = self.get_color()
 
-        return("SURFACE", self.color, (self.coords[0], self.coords[1], self.length, 20), 2)
+        return("SURFACE", self.color, (self.coords[0], self.coords[1], self.length, self.bar_height), 2)

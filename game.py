@@ -55,10 +55,14 @@ class Game(object):
         for f in self.render_list:
             self.screen.blit(f[0], f[1])
 
-    def disp(self, life):
+    def display_hp(self, life):
         self.life_bar = Life_bar(life, self.width, self.height)
-        self.bar = self.life_bar.get_rect()
+        self.bar = self.life_bar.get_bar()
         pygame.draw.rect(self.screen, self.bar[1], (self.bar[2]), self.bar[3])
+        self.bar_x_center = self.bar[2][0] + self.bar[2][2]/2
+        self.bar_y_center = self.bar[2][1] + self.bar[2][3]/2
+        self.string = self.text.text_by_center(str(life), (self.bar_x_center, self.bar_y_center), self.bar[1], self.life_bar.life_font)
+        self.screen.blit(self.string[0], self.string[1])
 
 
     def adjust_screen(self, bottom_right_field):
@@ -111,7 +115,7 @@ class Game(object):
 
             stats = self.get_stats(player)
             self.display_stats(stats)
-            self.disp(player.current_hp)
+            self.display_hp(player.current_hp)
             pygame.display.flip()
             self.clock.tick(20)
 
