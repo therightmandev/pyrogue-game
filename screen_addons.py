@@ -14,6 +14,7 @@ class Text(object):
     def text_by_top_left(self, msg, coords, color, kinda_font):
         '''locates the text by receiving its top left corner coordinates (default)'''
         self.text_surf, self.text_rect = self.text_object(msg, color, kinda_font)
+        self.text_rect.center = (coords[0] + self.text_rect.width/2, coords[1] + self.text_rect.height/2)
         return self.text_surf, self.text_rect
 
     def text_by_center(self, msg, coords, color, kinda_font):
