@@ -48,10 +48,10 @@ class Game(object):
         self.screen.blit(self.text.small_font.render('HP: ' + str(stats_dict['current_hp']), False, (A_BLUE)), (10, 30))
         self.screen.blit(self.text.small_font.render('Strength: ' + str(stats_dict['strength']), False, (A_BLUE)), (10, 50))
         self.screen.blit(self.text.small_font.render('Attack : ' + str(stats_dict['attack']), False, (A_BLUE)), (10, 70))
-        self.screen.blit(self.text.small_font.render('Defence: ' + str(stats_dict['defense']), False, (A_BLUE)), (10,  90))
+        self.screen.blit(self.text.small_font.render('Defense: ' + str(stats_dict['defense']), False, (A_BLUE)), (10,  90))
 
         self.render_list = []
-        self.render_list.append(self.text.text_by_top_left(str(stats_dict['level']), (self.width/10, self.height/10*9), A_BLUE, self.text.big_font))
+        self.render_list.append(self.text.text_by_bot_left(str(stats_dict['level']), (self.width/10, self.height/20*19), A_BLUE, self.text.big_font))
         for f in self.render_list:
             self.screen.blit(f[0], f[1])
 
