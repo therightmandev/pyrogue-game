@@ -52,10 +52,7 @@ class Life_bar(object):
 
         self.width = scr_width
         self.height = scr_height
-        if life <= 0:
-            self.life = 0
-        else:
-            self.life = life
+        self.life = life
         self.percent = (100 * self.life) / 10
         self.totallength = (self.width / 10) * 8
         self.bar_height = 20

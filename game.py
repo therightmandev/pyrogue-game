@@ -12,6 +12,9 @@ RED = (255, 0, 0)
 OFF_RED = (230, 20, 20)
 DARK_GREY = (30, 30, 30)
 A_BLUE = (5, 100, 240)
+RED_ORANGE = (245, 34, 5)
+D_BLUE = (0, 179, 255)
+
 
 
 
@@ -43,15 +46,14 @@ class Game(object):
     def display_stats(self, stats_dict):
         '''render stats to the screen'''
         self.stats = stats_dict
-        pygame.draw.rect(self.screen, (BLACK), (7, 10, 150, 120), 3)
-        self.screen.blit(self.text.small_font.render('Level: ' + str(stats_dict['level']), False, (A_BLUE)), (10, 10))
-        self.screen.blit(self.text.small_font.render('HP: ' + str(stats_dict['current_hp']), False, (A_BLUE)), (10, 30))
         self.screen.blit(self.text.small_font.render('Strength: ' + str(stats_dict['strength']), False, (A_BLUE)), (10, 50))
-        self.screen.blit(self.text.small_font.render('Attack : ' + str(stats_dict['attack']), False, (A_BLUE)), (10, 70))
-        self.screen.blit(self.text.small_font.render('Defense: ' + str(stats_dict['defense']), False, (A_BLUE)), (10,  90))
 
         self.render_list = []
-        self.render_list.append(self.text.text_by_bot_left(str(stats_dict['level']), (self.width/10, self.height/20*19), A_BLUE, self.text.big_font))
+        self.tile = pygame.Surface(self.screen.get_size())
+        self.render_list.append(self.text.text_by_bot_left("Lvl " + str(stats_dict['level']), (self.width/10, self.height/20*19), A_BLUE, self.text.big_font))
+        self.defense_text = (self.text.text_by_top_left("Defense " + str(stats_dict['defense']), (self.width/10, self.height/20*3), D_BLUE, self.text.small_font))
+        self.render_list.append(self.defense_text)
+        self.render_list.append(self.text.text_by_top_left("Attack " + str(stats_dict['attack']), (self.width/10 + 1.2 * self.defense_text[1].width, self.height/20*3), RED_ORANGE, self.text.small_font))
         for f in self.render_list:
             self.screen.blit(f[0], f[1])
 
@@ -108,8 +110,10 @@ class Game(object):
                 fields_grid[player_row][player_index] = player
             if events.can_move(player.xpos + player.xmov, player.ypos, fields_grid):
                 player.xpos += player.xmov
-                if player.xmov > 0:
-                    player.current_hp = player.current_hp - 0.2
+                if player.xmov > 0: #for testing purposes
+                    player.current_hp = round(player.current_hp - 0.2, 1)
+                if player.current_hp <= 0: #for testing purposes
+                    player.current_hp = 0
             if events.can_move(player.xpos, player.ypos + player.ymov, fields_grid):
                 player.ypos += player.ymov
 
