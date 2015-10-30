@@ -16,7 +16,7 @@ RED_ORANGE = (245, 34, 5)
 D_BLUE = (0, 179, 255)
 PURPLE = (196, 12, 181)
 
-
+frameRate = 20
 
 
 class Game(object):
@@ -104,6 +104,8 @@ class Game(object):
 
         # Event loop
         while not self.gameExit:
+            delta = self.clock.tick(frameRate)/1000.0
+
             self.screen.blit(self.background, (0, 0))
             player, player_row, player_index = self.draw_grid(fields_grid)
 
@@ -112,20 +114,20 @@ class Game(object):
                 self.gameExit = events.quit_game(event)
                 player.xmov, player.ymov = events.player_moves(event, player.xpos, player.ypos, player.sizex, player.sizey, fields_grid, player.xmov, player.ymov)
                 fields_grid[player_row][player_index] = player
-            if events.can_move(player.xpos + player.xmov, player.ypos, fields_grid):
-                player.xpos += player.xmov
+            if events.can_move(player.xpos + player.xmov, player.maxspeed * delta, fields_grid):
+                player.xpos += player.maxspeed * delta
                 if player.xmov > 0: #for testing purposes
                     player.current_hp = round(player.current_hp - 0.2, 1)
                 if player.current_hp <= 0: #for testing purposes
                     player.current_hp = 0
-            if events.can_move(player.xpos, player.ypos + player.ymov, fields_grid):
-                player.ypos += player.ymov
+            if events.can_move(player.xpos, player.ypos + player.maxspeed * delta, fields_grid):
+                player.ypos += player.maxspeed * delta
 
             stats = self.get_stats(player)
             self.display_stats(stats)
             self.display_hp(player.current_hp)
             pygame.display.flip()
-            self.clock.tick(20)
+            self.clock.tick(frameRate)
 
 if __name__ == '__main__':
     Game(640, 1060).main()

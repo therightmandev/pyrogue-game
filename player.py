@@ -2,7 +2,8 @@ BLUE = (0,0,255)
 
 class Player(object):
     """player class, inheriting from Field as it's still a field"""
-    def __init__(self, xpos, ypos, sizex, sizey, name, xmov, ymov):
+    """please note, the maxspeed is pixels / second"""
+    def __init__(self, xpos, ypos, sizex, sizey, name, maxspeed):
         self.xpos = xpos
         self.ypos = ypos
         self.xmov = xmov
@@ -16,6 +17,7 @@ class Player(object):
         self.defense = 4
         self.level = 1
         self.current_hp = 10
+        self.maxspeed = maxspeed
     def stats(self):
         stats = {'strength': self.strength,
                      'attack': self.attack,
