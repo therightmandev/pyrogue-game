@@ -60,6 +60,11 @@ class Game(object):
         self.render_list.append(self.strength_text)
         for f in self.render_list:
             self.screen.blit(f[0], f[1])
+    def display_inventory(self, inventory):
+        self.render_list = []
+        self.tile= pygame.Surface(self.screen.get_size())
+        for i in inventory():
+            self.render_list.append()
 
     def display_hp(self, life):
         self.life_bar = Life_bar(life, self.width, self.height)

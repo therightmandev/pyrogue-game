@@ -18,6 +18,7 @@ class Player(object):
         self.level = 1
         self.current_hp = 10
         self.maxspeed = maxspeed
+        self.inventory = {}
     def stats(self):
         stats = {'strength': self.strength,
                      'attack': self.attack,
