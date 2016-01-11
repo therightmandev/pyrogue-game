@@ -12,14 +12,11 @@ class Event_Handler(object):
 
     def can_move(self, x, y, grid):
         '''checks if the player can move to a (x, y) position'''
-        self.x = x
-        self.y = y
         for j in grid:
             for i in j:
                 if i.__class__.__name__ != "Player":
                     if i.xpos == x and i.ypos == y:
-                        if i.is_free():
-                            return True
+                        return i.is_free()
 
     def player_moves(self, event, plr_x, plr_y, size_x, size_y, grid, xmov, ymov):
         '''handles player moves'''
@@ -46,8 +43,4 @@ class Event_Handler(object):
             if event.key == pygame.K_d:
                 if xmov > 0:
                     xmov = 0
-
-        y_mov = ymov
-        x_mov = xmov
-
         return xmov, ymov

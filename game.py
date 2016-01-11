@@ -112,13 +112,9 @@ class Game(object):
                 self.gameExit = events.quit_game(event)
                 player.xmov, player.ymov = events.player_moves(event, player.xpos, player.ypos, player.sizex, player.sizey, fields_grid, player.xmov, player.ymov)
                 fields_grid[player_row][player_index] = player
-            if events.can_move(player.xpos + player.xmov, player.ypos, fields_grid):
+
+            if events.can_move(player.xpos + player.xmov, player.ypos + player.ymov, fields_grid):
                 player.xpos += player.xmov
-                if player.xmov > 0: #for testing purposes
-                    player.current_hp = round(player.current_hp - 0.2, 1)
-                if player.current_hp <= 0: #for testing purposes
-                    player.current_hp = 0
-            if events.can_move(player.xpos, player.ypos + player.ymov, fields_grid):
                 player.ypos += player.ymov
 
             stats = self.get_stats(player)
