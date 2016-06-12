@@ -53,7 +53,7 @@ class Game(object):
         self.level_text = self.text.text_by_bot_left("Lvl " + str(stats_dict['level']), (self.width/10, self.height/20*19), PURPLE, self.text.big_font)
         self.defense_text = self.text.text_by_top_left("Defense " + str(stats_dict['defense']), (self.width/10, self.height/20*3), D_BLUE, self.text.small_font)
         self.attack_text = self.text.text_by_top_left("Attack " + str(stats_dict['attack']), (self.width/10 + 1.2 * self.defense_text[1].width, self.defense_text[1].y), RED_ORANGE, self.text.small_font)
-        self.strength_text = self.text.text_by_top_left("Strenght " + str(stats_dict['strength']), (self.attack_text[1].x + 1.2 * self.attack_text[1].width, self.attack_text[1].y), A_BLUE, self.text.small_font)
+        self.strength_text = self.text.text_by_top_left("Strength " + str(stats_dict['strength']), (self.attack_text[1].x + 1.2 * self.attack_text[1].width, self.attack_text[1].y), A_BLUE, self.text.small_font)
         self.render_list.append(self.level_text)
         self.render_list.append(self.defense_text)
         self.render_list.append(self.attack_text)
